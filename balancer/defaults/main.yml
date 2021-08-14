@@ -1,0 +1,24 @@
+---
+# defaults file for balancer
+
+# haproxy package
+pkg: haproxy
+
+# fronend port number
+front_end_port: 8080
+
+# list of backend servers
+haproxy_backend_servers:
+  - name: app1
+    address: 192.168.0.180
+  - name: app2
+    address: 192.168.0.181
+
+
+# backend servers port number
+backend_port_num: 80
+
+# enable firewalld rule
+rule: 
+  port: 8080
+  prtctl: tcp

@@ -1,0 +1,27 @@
+---
+# tasks file for balancer
+- name: installing haproxy
+  yum:
+    name: "{{ pkg }}"
+
+- name: start the load balancer
+  service:
+    name: haproxy
+    state: started
+    enabled: true
+  
+- name: copying conf file
+  template:
+    src: haproxy.cfg.j2
+    dest: /etc/haproxy/haproxy.cfg
+  notify: restart haproxy
+
+- debug:
+    var: rule
+
+- name: enable firewalld rule
+  firewalld:
+    port: "{{rule['port']}}/{{rule['prtctl']}}"
+    state: enabled
+    permanent: yes
+    immediate: yes
