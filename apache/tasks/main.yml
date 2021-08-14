@@ -1,0 +1,29 @@
+---
+# tasks file for apache
+- name: Install all required packages
+  yum:
+    name: "{{ pkg }}"
+    state: present
+
+
+- name: Start and enable the services
+  service:
+    name: "{{ srv }}"
+    state: started
+    enabled: true
+
+- name: Enabling firewalld rule
+  firewalld:
+    service: "{{ item }}"
+    permanent: true
+    immediate: true
+    state: enabled
+  loop: "{{ rule }}"
+
+- name: create info file from template
+  template:
+    src: index.html.j2
+    dest: /var/www/html/index.html
+  
+
+...

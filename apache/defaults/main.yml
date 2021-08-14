@@ -1,0 +1,12 @@
+---
+# defaults file for apache
+# package name
+pkg: "httpd"
+
+# service name
+srv: "httpd"
+
+# firewalld role
+rule:
+  - https
+  - http
